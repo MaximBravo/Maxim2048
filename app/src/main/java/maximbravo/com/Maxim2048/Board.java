@@ -21,6 +21,11 @@ public class Board {
     public void set(int row, int column, int id){
         board[row][column] = new Square(id);
     }
+    public void convertIntArrayToBoard(int row, int[] array){
+        for(int i = 0; i < 4; i++) {
+            board[row][i] = new Square(array[i]);
+        }
+    }
 	public void initializeBoard(){
 		for(int row = 0; row < 4; row++){
 			Square[] s = new Square[4];

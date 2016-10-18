@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton android:id="@+id/colorTheme0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grey Theme"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/colorTheme1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Red Theme"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/colorTheme2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Orange Theme"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/colorTheme3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yellow Theme"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/colorTheme4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Green Theme"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/colorTheme5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blue Theme"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/colorTheme6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Purple Theme"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/colorTheme7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pink Theme"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/colorTheme8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Brown Theme"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+    <Button
+        android:onClick="finish"
+        android:text="Done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+</LinearLayout>

@@ -1,8 +1,13 @@
 package maximbravo.com.Maxim2048;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -10,14 +15,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private Board b = new Board();
+    private static Board b = new Board();
     private static LinearLayout r;
     private static int score = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            b.convertIntArrayToBoard(0, extras.getIntArray("row1"));
+            b.convertIntArrayToBoard(1, extras.getIntArray("row2"));
+            b.convertIntArrayToBoard(2, extras.getIntArray("row3"));
+            b.convertIntArrayToBoard(3, extras.getIntArray("row4"));
+        }
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         r = (LinearLayout) findViewById(R.id.r);
         b.drawBoard();
         updateScore();
@@ -50,6 +62,39 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.preferences:
+                Intent intent = new Intent(getBaseContext(), SettingsActivity.class);
+                int[] row1 = getIntArrayOfRow(0);
+                int[] row2 = getIntArrayOfRow(1);
+                int[] row3 = getIntArrayOfRow(2);
+                int[] row4 = getIntArrayOfRow(3);
+                intent.putExtra("row1", row1);
+                intent.putExtra("row2", row2);
+                intent.putExtra("row3", row3);
+                intent.putExtra("row4", row4);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    private static int[] getIntArrayOfRow(int row){
+        int[] result = new int[4];
+        for(int i = 0; i < 3; i++){
+            result[i] = b.get(row, i).getId();
+        }
+        return result;
     }
     public static void addToScore(int toAdd){
         score+= toAdd;

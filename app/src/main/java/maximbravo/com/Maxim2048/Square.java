@@ -29,7 +29,7 @@ public class Square {
 	}
 	public String getSquareColor(){
 		String result = "";
-		result = ColorCoding.getStringColorFor(1, id);
+		result = ColorCoding.getStringColorFor(Rules.scale, id);
 		return result;
 	}
 	public boolean getJustAdded(){
