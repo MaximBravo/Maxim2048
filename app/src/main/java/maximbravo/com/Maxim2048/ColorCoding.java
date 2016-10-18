@@ -4,6 +4,29 @@ package maximbravo.com.Maxim2048;
  * Created by wendy on 10/17/2016.
  */
 public class ColorCoding {
+    public static String[] quilt = {
+            //0 square color
+            "#D2CECD",
+            //2 square color
+            "#F6B9B8",
+            //4 square color
+            "#F4d9af",
+            //...
+            "#Ee7472",
+            "#C3ad8c",
+            "#a1e9e3",
+            "#f6aa67",
+            "#b38197",
+            "#fce5d1",
+            "#e0ccd5",
+            "#badbc5",
+            "#ec645a",
+            "#ec645a",
+            "#8697a1",
+            "#867e75",
+            "#999546",
+            "#fffdd5"
+    };
 
     public static String[] red = {
         "#FFFFFF",
@@ -230,6 +253,9 @@ public class ColorCoding {
                 break;
             case 8:
                 result = brown[position];
+                break;
+            case 9:
+                result = quilt[position];
                 break;
         }
 

@@ -3,7 +3,7 @@ package maximbravo.com.Maxim2048;
 import java.util.ArrayList;
 
 public class Rules {
-	public static int scale = 0;
+	public static int scale = 9;
 	public Rules(){
 		initializeSquares();
 	}

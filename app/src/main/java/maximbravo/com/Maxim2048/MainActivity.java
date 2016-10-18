@@ -1,7 +1,6 @@
 package maximbravo.com.Maxim2048;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,8 +27,9 @@ public class MainActivity extends AppCompatActivity {
             b.convertIntArrayToBoard(1, extras.getIntArray("row2"));
             b.convertIntArrayToBoard(2, extras.getIntArray("row3"));
             b.convertIntArrayToBoard(3, extras.getIntArray("row4"));
+
         }
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         r = (LinearLayout) findViewById(R.id.r);
         b.drawBoard();
         updateScore();
@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         l.setTextSize(size);
         l.setTextColor(Color.BLACK);
+
         if(help)
         {
             l.setEnabled(s.getJustAdded());

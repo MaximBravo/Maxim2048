@@ -2,6 +2,7 @@ package maximbravo.com.Maxim2048;
 
 public class Board {
 	private Square[][] board = new Square[4][4];
+    public static boolean test = false;
 	public Board(){
 		initializeBoard();
 	}
@@ -27,17 +28,31 @@ public class Board {
         }
     }
 	public void initializeBoard(){
-		for(int row = 0; row < 4; row++){
-			Square[] s = new Square[4];
-			for(int column = 0; column < 4; column++){
-				s[column] = new Square(0);
-			}
-			board[row] = s;
-		}
-		
-		Matrix m = new Matrix(board);
-		m.addRandomSquare();
-		m.addRandomSquare();
+
+        if(test){
+            Square[] row1 = {new Square(0), new Square(16), new Square(256), new Square(4096)};
+            Square[] row2 = {new Square(2), new Square(32), new Square(512), new Square(8192)};
+            Square[] row3 = {new Square(4), new Square(64), new Square(1024), new Square(16384)};
+            Square[] row4 = {new Square(8), new Square(128), new Square(2048), new Square(32768)};
+            board = new Square[][]{
+                    row1,
+                    row2,
+                    row3,
+                    row4
+            };
+        } else {
+            for (int row = 0; row < 4; row++) {
+                Square[] s = new Square[4];
+                for (int column = 0; column < 4; column++) {
+                    s[column] = new Square(0);
+                }
+                board[row] = s;
+            }
+
+            Matrix m = new Matrix(board);
+            m.addRandomSquare();
+            m.addRandomSquare();
+        }
 	}
 	
 	public void drawBoard(){

@@ -55,6 +55,9 @@ public class SettingsActivity extends AppCompatActivity {
             case R.id.colorTheme8:
                 Rules.scale = 8;
                 break;
+            case R.id.colorTheme9:
+                Rules.scale = 9;
+                break;
         }
     }
     public void finish(View view){

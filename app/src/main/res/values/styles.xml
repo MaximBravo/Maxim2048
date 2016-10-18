@@ -3,15 +3,31 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">#5f9ea0</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="abartheme" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:fontFamily">Lato</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">#5f9ea0</item>
+    </style>
+    <style name="MyCustomTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/abartheme</item>
+    </style>
     <style name="Square">
         <item name="android:onClick">remove</item>
         <item name="android:layout_margin">2.5dp</item>
         <item name="android:layout_width">@dimen/square_sidelength</item>
         <item name="android:layout_height">@dimen/square_sidelength</item>
+    </style>
+
+    <style name="ThemeItem">
+        <item name="android:onClick">onRadioButtonClicked</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_height">wrap_content</item>
+
     </style>
 </resources>

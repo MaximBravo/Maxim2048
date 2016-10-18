@@ -106,6 +106,11 @@ public class Matrix {
 	
 	public static void swipeUp(int column){
 		int count = 0;
+        int first = 0;
+        int second = 0;
+        for(int row = 0; row < 4; row++){
+            first += (updatedBoard[row][column].getId()*(10*(row+1)))/10;
+        }
 		for(int row = 0; row < 3; row++){
 			Square current = updatedBoard[row][column];
 			Square downSquare = updatedBoard[row+1][column];
@@ -120,6 +125,9 @@ public class Matrix {
 				updatedBoard[3][column] = new Square(0);
                 swiped = true;
 			} else if(current.getId() == 0 && count < 4){
+				if(current.getId() == 0 && downSquare.getId() != 0){
+					swiped = true;
+				}
 				for(int k = row; k < 3; k++){
                     Square resetSquare = updatedBoard[k+1][column];
                     resetSquare.setJustAdded(false);
@@ -132,7 +140,10 @@ public class Matrix {
 				row--;
 				count++;
                 //swiped = true;
-			} else if(downSquare.getId() == 0 && count < 4 && row < 2){
+			} else if(downSquare.getId() == 0 && count < 4 && row < 3){
+				if(current.getId() == 0 && downSquare.getId() != 0){
+					swiped = true;
+				}
 				for(int k = row+1; k < 3; k++){
                     Square resetSquare = updatedBoard[k+1][column];
                     resetSquare.setJustAdded(false);
@@ -143,13 +154,27 @@ public class Matrix {
 				count++;
                 //swiped = true;
 			}
+			if(current.getId() == 0 && downSquare.getId() != 0){
+				swiped = true;
+			}
 
 		}
+        for(int row = 0; row < 4; row++){
+            second += (updatedBoard[row][column].getId()*(10*(row+1)))/10;
+        }
+        if(first != second){
+            swiped = true;
+        }
 	}
 	
 	
 	public static void swipeDown(int column){
 		int count = 0;
+        int first = 0;
+        int second = 0;
+        for(int row = 0; row < 4; row++){
+            first += (updatedBoard[row][column].getId()*(10*(row+1)))/10;
+        }
 		for(int row = 3; row > 0; row--){
 			Square current = updatedBoard[row][column];
 			Square upSquare = updatedBoard[row-1][column];
@@ -164,6 +189,9 @@ public class Matrix {
 				updatedBoard[0][column] = new Square(0);
                 swiped = true;
 			} else if(current.getId() == 0 && count < 4){
+				if(current.getId() == 0 && upSquare.getId() != 0){
+					swiped = true;
+				}
 				for(int k = row; k > 0; k--){
                     Square resetSquare = updatedBoard[k-1][column];
                     resetSquare.setJustAdded(false);
@@ -177,6 +205,9 @@ public class Matrix {
 				count++;
                 //swiped = true;
 			} else if(upSquare.getId() == 0 && count < 4 && row > 2){
+				if(current.getId() == 0 && upSquare.getId() != 0){
+					swiped = true;
+				}
 				for(int k = row-1; k > 0; k--){
                     Square resetSquare = updatedBoard[k-1][column];
                     resetSquare.setJustAdded(false);
@@ -187,10 +218,24 @@ public class Matrix {
 				count++;
                 //swiped = true;
 			}
+			if(current.getId() == 0 && upSquare.getId() != 0){
+				swiped = true;
+			}
 		}
+        for(int row = 0; row < 4; row++){
+            second += (updatedBoard[row][column].getId()*(10*(row+1)))/10;
+        }
+        if(first != second){
+            swiped = true;
+        }
 	}
 	public static void swipeLeft(int row){
 		int count = 0;
+        int first = 0;
+        int second = 0;
+        for(int column = 0; column < 4; column++){
+            first += (updatedBoard[row][column].getId()*(10*(column+1)))/10;
+        }
 		for(int column = 0; column < 3; column++){
 			Square current = updatedBoard[row][column];
 			Square rightSquare = updatedBoard[row][column+1];
@@ -205,6 +250,9 @@ public class Matrix {
 				updatedBoard[row][3] = new Square(0);
                 swiped = true;
 			} else if(current.getId() == 0 && count < 4){
+				if(current.getId() == 0 && rightSquare.getId() != 0){
+					swiped = true;
+				}
 				for(int k = column; k < 3; k++){
                     Square resetSquare = updatedBoard[row][k+1];
                     resetSquare.setJustAdded(false);
@@ -218,6 +266,9 @@ public class Matrix {
 				count++;
                 //swiped = true;
 			} else if(rightSquare.getId() == 0 && count < 4 && column < 2){
+				if(current.getId() == 0 && rightSquare.getId() != 0){
+					swiped = true;
+				}
 				for(int k = column+1; k < 3; k++){
                     Square resetSquare = updatedBoard[row][k+1];
                     resetSquare.setJustAdded(false);
@@ -228,11 +279,25 @@ public class Matrix {
 				count++;
                 //swiped = true;
 			}
+			if(current.getId() == 0 && rightSquare.getId() != 0){
+				swiped = true;
+			}
 		}
+        for(int column = 0; column < 4; column++){
+            second += (updatedBoard[row][column].getId()*(10*(column+1)))/10;
+        }
+        if(first != second){
+            swiped = true;
+        }
 	}
 	
 	public static void swipeRight(int row){
 		int count = 0;
+        int first = 0;
+        int second = 0;
+        for(int column = 0; column < 4; column++){
+            first += (updatedBoard[row][column].getId()*(10*(column+1)))/10;
+        }
 		for(int column = 3; column > 0; column--){
 			Square current = updatedBoard[row][column];
 			Square leftSquare = updatedBoard[row][column-1];
@@ -245,20 +310,17 @@ public class Matrix {
 					updatedBoard[row][k] = resetSquare;
 				}
 				updatedBoard[row][0] = new Square(0);
-                swiped = true;
+
 			} else if(current.getId() == 0 && count < 4){
+
 				for(int k = column; k > 0; k--){
                     Square resetSquare = updatedBoard[row][k-1];
                     resetSquare.setJustAdded(false);
-                    if(resetSquare.getId() > 0){
-                        swiped = true;
-                    }
 					updatedBoard[row][k] = resetSquare;
 				}
 				updatedBoard[row][0] = new Square(0);
 				column++;
 				count++;
-                //swiped = true;
 			} else if(leftSquare.getId() == 0 && count < 4 && column > 2){
 				for(int k = column-1; k > 0; k--){
                     Square resetSquare = updatedBoard[row][k-1];
@@ -268,9 +330,14 @@ public class Matrix {
 				updatedBoard[row][0] = new Square(0);
 				column++;
 				count++;
-                //swiped = true;
 			}
 
 		}
+        for(int column = 0; column < 4; column++){
+            second += (updatedBoard[row][column].getId()*(10*(column+1)))/10;
+        }
+        if(first != second){
+            swiped = true;
+        }
 	}
 }
