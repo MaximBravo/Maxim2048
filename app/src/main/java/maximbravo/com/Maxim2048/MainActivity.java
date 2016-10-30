@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private static Board b = new Board();
     private static LinearLayout r;
+    private static LinearLayout l;
     private static int score = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +26,12 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Bundle extras = getIntent().getExtras();
         if(extras != null){
-            b.convertIntArrayToBoard(0, extras.getIntArray("row1"));
-            b.convertIntArrayToBoard(1, extras.getIntArray("row2"));
-            b.convertIntArrayToBoard(2, extras.getIntArray("row3"));
-            b.convertIntArrayToBoard(3, extras.getIntArray("row4"));
+            if( extras.getIntArray("row1") != null) {
+                b.convertIntArrayToBoard(0, extras.getIntArray("row1"));
+                b.convertIntArrayToBoard(1, extras.getIntArray("row2"));
+                b.convertIntArrayToBoard(2, extras.getIntArray("row3"));
+                b.convertIntArrayToBoard(3, extras.getIntArray("row4"));
+            }
 
         }
 
@@ -39,25 +42,25 @@ public class MainActivity extends AppCompatActivity {
         helpCount.setText("Help Left: " + helpLeft);
         r.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
-                //Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
                 if(b.updateBoard(0)) {
                     b.drawBoard();
                 }
             }
             public void onSwipeRight() {
-                //Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
                 if(b.updateBoard(1)) {
                     b.drawBoard();
                 }
             }
             public void onSwipeLeft() {
-                //Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
                 if(b.updateBoard(3)) {
                     b.drawBoard();
                 }
             }
             public void onSwipeBottom() {
-                //Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
                 if(b.updateBoard(2)) {
                     b.drawBoard();
                 }
