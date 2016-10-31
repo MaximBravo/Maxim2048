@@ -27,6 +27,27 @@ public class Board {
             board[row][i] = new Square(array[i]);
         }
     }
+    public void initializeBoard(String st){
+        String str = st;
+
+        if(st.length() < 16){
+            initializeBoard();
+
+        } else {
+            int count = 0;
+            String[] numbers = st.split(",");
+            for (int row = 0; row < 4; row++) {
+                Square[] s = new Square[4];
+                for (int column = 0; column < 4; column++) {
+                    s[column] = new Square(Integer.parseInt(numbers[count]));
+                    count++;
+                }
+                board[row] = s;
+            }
+            MainActivity.helpLeft = Integer.parseInt(numbers[16]);
+
+        }
+    }
 	public void initializeBoard(){
 
         if(test){
@@ -52,6 +73,7 @@ public class Board {
             Matrix m = new Matrix(board);
             m.addRandomSquare();
             m.addRandomSquare();
+
         }
 	}
 	
@@ -134,6 +156,16 @@ public class Board {
                 break;
         }
         return id;
+    }
+    public String toString(int help){
+        String ret = "";
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 4; j++){
+                ret += "" + board[i][j].getId() + ",";
+            }
+        }
+        ret += help;
+        return ret;
     }
 //	public void drawRow(int row){
 //		for(int count = 0; count < 7; count++){

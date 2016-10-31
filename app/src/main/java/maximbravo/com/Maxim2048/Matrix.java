@@ -43,11 +43,13 @@ public class Matrix {
 	public static boolean addRandomSquare(){
 		int squareIdToPut = ((Math.random() <= 0.5) ? 1 : 2)*2;
 		int emptySpaceCount = getEmptySpaceCount();
-		if(emptySpaceCount == 0){
+
+		Random rand = new Random();
+		if(emptySpaceCount <= 1){
+			placeNewSquareIn(0, squareIdToPut);
 			return false;
 		}
-		Random rand = new Random();
-	    int randomNumPosition = rand.nextInt((emptySpaceCount-1));
+		int randomNumPosition = rand.nextInt((emptySpaceCount-1));
 		placeNewSquareIn(randomNumPosition, squareIdToPut);
 		return true;
 	}
@@ -166,7 +168,7 @@ public class Matrix {
             swiped = true;
         }
 	}
-	
+
 	
 	public static void swipeDown(int column){
 		int count = 0;

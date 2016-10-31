@@ -12,7 +12,7 @@ public class Rules {
 	public static ArrayList<String> fourSquare = new ArrayList<String>();
 	public static ArrayList<String> eightSqure = new ArrayList<String>();
 	public static ArrayList<String> sixteenSquare = new ArrayList<String>();
-	
+	public static final String DEFAULT_BOARD_STRING = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3";
 	public void initializeSquares(){
 		
 		emptySquare.add(" *********** ");

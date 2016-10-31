@@ -19,11 +19,14 @@ public class MainActivity extends AppCompatActivity {
     private static LinearLayout r;
     private static LinearLayout l;
     private static int score = 0;
+    private static TextView gameOverTextView;
+    private static FileManipulator fileManipulator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        fileManipulator = new FileManipulator(this);
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             if( extras.getIntArray("row1") != null) {
@@ -36,37 +39,63 @@ public class MainActivity extends AppCompatActivity {
         }
 
         r = (LinearLayout) findViewById(R.id.r);
+        gameOverTextView = (TextView) r.findViewById(R.id.game_over);
+        b.initializeBoard(fileManipulator.getStringInFile());
         b.drawBoard();
         updateScore();
         TextView helpCount = (TextView) findViewById(R.id.helpCount);
         helpCount.setText("Help Left: " + helpLeft);
         r.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeTop() {
-                Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
                 if(b.updateBoard(0)) {
+                    if(!gameOver) {
+                        b.drawBoard();
+                    }
                     b.drawBoard();
+                } else {
+                    gameOver();
                 }
             }
             public void onSwipeRight() {
-                Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
                 if(b.updateBoard(1)) {
+                    if (!gameOver) {
+                        b.drawBoard();
+                    }
                     b.drawBoard();
+                } else {
+                    gameOver();
                 }
             }
             public void onSwipeLeft() {
-                Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
                 if(b.updateBoard(3)) {
+                    if(!gameOver) {
+                        b.drawBoard();
+                    }
                     b.drawBoard();
+                } else {
+                    gameOver();
                 }
             }
             public void onSwipeBottom() {
-                Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
                 if(b.updateBoard(2)) {
+                    if(!gameOver) {
+                        b.drawBoard();
+                    }
                     b.drawBoard();
+                } else {
+                    gameOver();
                 }
             }
 
         });
+    }
+    public static void gameOver(){
+        gameOverTextView.setText("Game Over!\n Your score is: " + score);
+        gameOver = true;
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,7 +140,8 @@ public class MainActivity extends AppCompatActivity {
     private static int stage = 0;
     private static int size = 30;
     private static boolean help = false;
-    private static int helpLeft = 3;
+    private static boolean gameOver = false;
+    public static int helpLeft = 3;
     public static void drawButtonAt(Square s, int id) {
 
         //r.setBackgroundColor(Color.BLACK);
@@ -165,7 +195,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void refresh(View view){
         b.initializeBoard();
+        gameOverTextView.setText("");
         helpLeft = 3;
+        gameOver = false;
         help = false;
         TextView helpCount = (TextView) findViewById(R.id.helpCount);
         helpCount.setText("Help Left: " + helpLeft);
@@ -272,5 +304,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return result;
+    }
+
+
+    @Override
+    public void onDestroy() {
+        fileManipulator.updateStringInFile(b.toString(helpLeft));
+        super.onDestroy();
+
     }
 }
