@@ -308,9 +308,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public void onDestroy() {
+    public void onStop() {
         fileManipulator.updateStringInFile(b.toString(helpLeft));
-        super.onDestroy();
+        super.onStop();
 
     }
 }

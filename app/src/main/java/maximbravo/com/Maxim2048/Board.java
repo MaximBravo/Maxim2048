@@ -51,10 +51,10 @@ public class Board {
 	public void initializeBoard(){
 
         if(test){
-            Square[] row1 = {new Square(0), new Square(16), new Square(256), new Square(4096)};
-            Square[] row2 = {new Square(2), new Square(32), new Square(512), new Square(8192)};
-            Square[] row3 = {new Square(4), new Square(64), new Square(1024), new Square(16384)};
-            Square[] row4 = {new Square(8), new Square(128), new Square(2048), new Square(32768)};
+            Square[] row1 = {new Square(256), new Square(128), new Square(64), new Square(32)};
+            Square[] row2 = {new Square(128), new Square(64), new Square(32), new Square(16)};
+            Square[] row3 = {new Square(64), new Square(32), new Square(8), new Square(4)};
+            Square[] row4 = {new Square(32), new Square(16), new Square(4), new Square(2)};
             board = new Square[][]{
                     row1,
                     row2,
