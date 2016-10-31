@@ -15,7 +15,9 @@ public class Board {
         MainActivity.updateScore();
 		return result;
 	}
-	
+	public Square[][] getSquareArrayBoard(){
+        return board;
+    }
 	public Square get(int row, int column){
         return board[row][column];
     }
@@ -45,6 +47,7 @@ public class Board {
                 board[row] = s;
             }
             MainActivity.helpLeft = Integer.parseInt(numbers[16]);
+            MainActivity.score = Integer.parseInt(numbers[17]);
 
         }
     }
@@ -157,14 +160,14 @@ public class Board {
         }
         return id;
     }
-    public String toString(int help){
+    public String toString(int help, int score){
         String ret = "";
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
                 ret += "" + board[i][j].getId() + ",";
             }
         }
-        ret += help;
+        ret += help + "," + score;
         return ret;
     }
 //	public void drawRow(int row){

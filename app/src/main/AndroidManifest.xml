@@ -18,6 +18,10 @@
         <activity android:name="maximbravo.com.Maxim2048.SettingsActivity">
 
         </activity>
+        <activity android:name="maximbravo.com.Maxim2048.Restart"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
     </application>
 
 </manifest>

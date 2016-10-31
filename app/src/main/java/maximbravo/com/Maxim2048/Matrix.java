@@ -47,7 +47,10 @@ public class Matrix {
 		Random rand = new Random();
 		if(emptySpaceCount <= 1){
 			placeNewSquareIn(0, squareIdToPut);
-			return false;
+			if(emptySpaceCount == 0 && swiped == false){
+				return false;
+			}
+			return true;
 		}
 		int randomNumPosition = rand.nextInt((emptySpaceCount-1));
 		placeNewSquareIn(randomNumPosition, squareIdToPut);

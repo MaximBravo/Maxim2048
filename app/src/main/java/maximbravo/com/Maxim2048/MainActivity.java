@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private static Board b = new Board();
     private static LinearLayout r;
     private static LinearLayout l;
-    private static int score = 0;
+    public static int score = 0;
     private static TextView gameOverTextView;
     private static FileManipulator fileManipulator;
     @Override
@@ -28,7 +28,11 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fileManipulator = new FileManipulator(this);
         Bundle extras = getIntent().getExtras();
+        b.initializeBoard(fileManipulator.getStringInFile());
         if(extras != null){
+            if(extras.getBoolean("refresh")){
+                refresh();
+            }
             if( extras.getIntArray("row1") != null) {
                 b.convertIntArrayToBoard(0, extras.getIntArray("row1"));
                 b.convertIntArrayToBoard(1, extras.getIntArray("row2"));
@@ -40,14 +44,18 @@ public class MainActivity extends AppCompatActivity {
 
         r = (LinearLayout) findViewById(R.id.r);
         gameOverTextView = (TextView) r.findViewById(R.id.game_over);
-        b.initializeBoard(fileManipulator.getStringInFile());
+
         b.drawBoard();
         updateScore();
         TextView helpCount = (TextView) findViewById(R.id.helpCount);
         helpCount.setText("Help Left: " + helpLeft);
         r.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
+
             public void onSwipeTop() {
                 //Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
+                if(boardLocked()){
+                    gameOver();
+                }
                 if(b.updateBoard(0)) {
                     if(!gameOver) {
                         b.drawBoard();
@@ -59,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
             }
             public void onSwipeRight() {
                 //Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
+                if(boardLocked()){
+                    gameOver();
+                }
                 if(b.updateBoard(1)) {
                     if (!gameOver) {
                         b.drawBoard();
@@ -70,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
             }
             public void onSwipeLeft() {
                 //Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
+                if(boardLocked()){
+                    gameOver();
+                }
                 if(b.updateBoard(3)) {
                     if(!gameOver) {
                         b.drawBoard();
@@ -81,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
             }
             public void onSwipeBottom() {
                 //Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+                if(boardLocked()){
+                    gameOver();
+                }
                 if(b.updateBoard(2)) {
                     if(!gameOver) {
                         b.drawBoard();
@@ -93,9 +110,26 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
-    public static void gameOver(){
-        gameOverTextView.setText("Game Over!\n Your score is: " + score);
-        gameOver = true;
+    public boolean boardLocked(){
+        Matrix m = new Matrix(b.getSquareArrayBoard());
+        if(m.getEmptySpaceCount() > 1){
+            return false;
+        }
+
+        for(int i = 0; i < 3; i++){
+            for(int j =0; j < 3; j++){
+                if(b.get(i,j).getId() == b.get(i+1,j).getId() || b.get(i,j).getId() == b.get(i, j+1).getId()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public void gameOver(){
+        Intent i = new Intent(MainActivity.this, Restart.class);
+        i.putExtra("gameover", true);
+        i.putExtra("score", score);
+        startActivity(i);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -193,8 +227,13 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-    public void refresh(View view){
+    public void restart(View view){
+       Intent i = new Intent(MainActivity.this, Restart.class);
+       startActivity(i);
+    }
+    public void refresh(){
         b.initializeBoard();
+       // Toast.makeText(getApplicationContext(), "refreshed!!!", Toast.LENGTH_LONG).show();
         gameOverTextView.setText("");
         helpLeft = 3;
         gameOver = false;
@@ -309,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onStop() {
-        fileManipulator.updateStringInFile(b.toString(helpLeft));
+        fileManipulator.updateStringInFile(b.toString(helpLeft, score));
         super.onStop();
 
     }

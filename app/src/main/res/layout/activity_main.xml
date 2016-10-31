@@ -156,8 +156,8 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:onClick="refresh"
-                android:text="REFRESH" />
+                android:onClick="restart"
+                android:text="Restart" />
 
             <TextView
                 android:id="@+id/helpCount"
