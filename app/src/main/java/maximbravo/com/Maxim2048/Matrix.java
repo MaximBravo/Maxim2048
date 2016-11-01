@@ -41,10 +41,13 @@ public class Matrix {
 	}
 	
 	public static boolean addRandomSquare(){
-		int squareIdToPut = ((Math.random() <= 0.5) ? 1 : 2)*2;
+		int[] pool = {2,2,2,2,2,4,2,2,2,2};
+		Random rand = new Random();
+		int squarePoolId = rand.nextInt(10 - 1 + 1) + 1;
+		int squareIdToPut = pool[squarePoolId];
 		int emptySpaceCount = getEmptySpaceCount();
 
-		Random rand = new Random();
+
 		if(emptySpaceCount <= 1){
 			placeNewSquareIn(0, squareIdToPut);
 			if(emptySpaceCount == 0 && swiped == false){

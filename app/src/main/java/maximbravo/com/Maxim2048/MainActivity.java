@@ -201,6 +201,9 @@ public class MainActivity extends AppCompatActivity {
             l.setBackgroundColor(c);
         }
         //l.setTextColor(Color.WHITE);
+        if(s.getId()>999){
+            l.setTextSize(16);
+        }
         if(s.getId() != 0) {
             l.setText("" + s.getId());
         } else {

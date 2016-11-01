@@ -32,7 +32,7 @@ public class Board {
     public void initializeBoard(String st){
         String str = st;
 
-        if(st.length() < 16){
+        if(st.length() < 16 || test){
             initializeBoard();
 
         } else {
@@ -56,10 +56,10 @@ public class Board {
 	public void initializeBoard(){
 
         if(test){
-            Square[] row1 = {new Square(256), new Square(128), new Square(64), new Square(32)};
-            Square[] row2 = {new Square(128), new Square(64), new Square(32), new Square(16)};
-            Square[] row3 = {new Square(64), new Square(32), new Square(8), new Square(4)};
-            Square[] row4 = {new Square(32), new Square(16), new Square(4), new Square(2)};
+            Square[] row1 = {new Square(512), new Square(512), new Square(512), new Square(512)};
+            Square[] row2 = {new Square(512), new Square(512), new Square(512), new Square(512)};
+            Square[] row3 = {new Square(512), new Square(512), new Square(512), new Square(512)};
+            Square[] row4 = {new Square(512), new Square(512), new Square(512), new Square(512)};
             board = new Square[][]{
                     row1,
                     row2,
