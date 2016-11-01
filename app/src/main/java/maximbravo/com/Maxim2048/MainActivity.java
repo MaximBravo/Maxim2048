@@ -53,57 +53,52 @@ public class MainActivity extends AppCompatActivity {
 
             public void onSwipeTop() {
                 //Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
-                if(boardLocked()){
-                    gameOver();
-                }
+
                 if(b.updateBoard(0)) {
                     if(!gameOver) {
                         b.drawBoard();
                     }
                     b.drawBoard();
-                } else {
+                }
+                if(boardLocked()){
                     gameOver();
                 }
             }
             public void onSwipeRight() {
                 //Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
-                if(boardLocked()){
-                    gameOver();
-                }
+
                 if(b.updateBoard(1)) {
                     if (!gameOver) {
                         b.drawBoard();
                     }
                     b.drawBoard();
-                } else {
+                }
+                if(boardLocked()){
                     gameOver();
                 }
             }
             public void onSwipeLeft() {
                 //Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
-                if(boardLocked()){
-                    gameOver();
-                }
+
                 if(b.updateBoard(3)) {
                     if(!gameOver) {
                         b.drawBoard();
                     }
                     b.drawBoard();
-                } else {
+                }
+                if(boardLocked()){
                     gameOver();
                 }
             }
             public void onSwipeBottom() {
                 //Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
-                if(boardLocked()){
-                    gameOver();
-                }
                 if(b.updateBoard(2)) {
                     if(!gameOver) {
                         b.drawBoard();
                     }
                     b.drawBoard();
-                } else {
+                }
+                if(boardLocked()){
                     gameOver();
                 }
             }
@@ -112,13 +107,21 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean boardLocked(){
         Matrix m = new Matrix(b.getSquareArrayBoard());
-        if(m.getEmptySpaceCount() > 1){
+        if(m.getEmptySpaceCount() >= 1){
             return false;
         }
 
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < 4; i++){
             for(int j =0; j < 3; j++){
-                if(b.get(i,j).getId() == b.get(i+1,j).getId() || b.get(i,j).getId() == b.get(i, j+1).getId()){
+                if( b.get(i,j).getId() == b.get(i, j+1).getId()){
+                    return false;
+                }
+            }
+        }
+
+        for(int i = 0; i < 3; i++){
+            for(int j =0; j < 4; j++){
+                if(b.get(i,j).getId() == b.get(i+1,j).getId()){
                     return false;
                 }
             }
@@ -198,7 +201,11 @@ public class MainActivity extends AppCompatActivity {
             l.setBackgroundColor(c);
         }
         //l.setTextColor(Color.WHITE);
-        l.setText("" + s.getId());
+        if(s.getId() != 0) {
+            l.setText("" + s.getId());
+        } else {
+            l.setText("");
+        }
     }
 
 

@@ -47,7 +47,9 @@ public class Board {
                 board[row] = s;
             }
             MainActivity.helpLeft = Integer.parseInt(numbers[16]);
-            MainActivity.score = Integer.parseInt(numbers[17]);
+            if(numbers.length >= 18) {
+                MainActivity.score = Integer.parseInt(numbers[17]);
+            }
 
         }
     }
@@ -167,7 +169,12 @@ public class Board {
                 ret += "" + board[i][j].getId() + ",";
             }
         }
-        ret += help + "," + score;
+        boolean t = false;
+        if(t){
+            ret += help;
+        } else {
+            ret += help + "," + score;
+        }
         return ret;
     }
 //	public void drawRow(int row){
