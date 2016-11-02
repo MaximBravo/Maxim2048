@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:layout_height="match_parent" >
+    <LinearLayout
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:text="Swipe in the grey area to move the squares into each other.
+            \n The Use help feature allows for you to at any time to remove a square that hasn't moved.
+            \n You can allays refer back to this page by navigating to the help option in the title bar.
+            \n Once you achieve 2048 and every higher square after that you will get a increase of +3 helps."/>
+    </LinearLayout>
+</ScrollView>

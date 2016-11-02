@@ -20,11 +20,14 @@ public class MainActivity extends AppCompatActivity {
     private static LinearLayout l;
     public static int score = 0;
     private static TextView gameOverTextView;
+    private static TextView helpCount;
+    public static boolean hasNotAdded = true;
     private static FileManipulator fileManipulator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        helpCount = (TextView) findViewById(R.id.helpCount);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fileManipulator = new FileManipulator(this);
         Bundle extras = getIntent().getExtras();
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         b.drawBoard();
         updateScore();
-        TextView helpCount = (TextView) findViewById(R.id.helpCount);
+
         helpCount.setText("Help Left: " + helpLeft);
         r.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
 
@@ -59,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
                         b.drawBoard();
                     }
                     b.drawBoard();
+                    if(b.getHighestSquare() > 2000 && hasNotAdded){
+                        helpLeft+=3;
+                        hasNotAdded = false;
+                    }
                 }
                 if(boardLocked()){
                     gameOver();
@@ -72,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
                         b.drawBoard();
                     }
                     b.drawBoard();
+                    if(b.getHighestSquare() > 2000 && hasNotAdded){
+                        helpLeft+=3;
+                        hasNotAdded = false;
+                    }
                 }
                 if(boardLocked()){
                     gameOver();
@@ -85,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
                         b.drawBoard();
                     }
                     b.drawBoard();
+                    int high = b.getHighestSquare();
+                    if(high > 2000 && hasNotAdded){
+                        helpLeft+=3;
+                        hasNotAdded = false;
+                    }
                 }
                 if(boardLocked()){
                     gameOver();
@@ -97,6 +113,11 @@ public class MainActivity extends AppCompatActivity {
                         b.drawBoard();
                     }
                     b.drawBoard();
+                    if(b.getHighestSquare() > 2000 && hasNotAdded){
+                        helpLeft+=3;
+
+                        hasNotAdded = false;
+                    }
                 }
                 if(boardLocked()){
                     gameOver();
@@ -151,10 +172,14 @@ public class MainActivity extends AppCompatActivity {
                 int[] row3 = getIntArrayOfRow(2);
                 int[] row4 = getIntArrayOfRow(3);
                 intent.putExtra("row1", row1);
-                intent.putExtra("row2", row2);
+                intent.putExtra("row" + "2", row2);
                 intent.putExtra("row3", row3);
                 intent.putExtra("row4", row4);
                 startActivity(intent);
+                return true;
+            case R.id.help:
+                Intent i = new Intent(MainActivity.this, HelpActivity.class);
+                startActivity(i);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -179,6 +204,9 @@ public class MainActivity extends AppCompatActivity {
     private static boolean help = false;
     private static boolean gameOver = false;
     public static int helpLeft = 3;
+    public static void updateHelpCount(){
+        helpCount.setText("Help Left: " + helpLeft);
+    }
     public static void drawButtonAt(Square s, int id) {
 
         //r.setBackgroundColor(Color.BLACK);
@@ -209,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             l.setText("");
         }
+        updateHelpCount();
     }
 
 
@@ -245,10 +274,11 @@ public class MainActivity extends AppCompatActivity {
         b.initializeBoard();
        // Toast.makeText(getApplicationContext(), "refreshed!!!", Toast.LENGTH_LONG).show();
         gameOverTextView.setText("");
+        hasNotAdded = true;
         helpLeft = 3;
         gameOver = false;
         help = false;
-        TextView helpCount = (TextView) findViewById(R.id.helpCount);
+        helpCount = (TextView) findViewById(R.id.helpCount);
         helpCount.setText("Help Left: " + helpLeft);
         Button helpButton = (Button) findViewById(R.id.help);
         helpButton.setEnabled(true);
@@ -275,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
         Square tapedon = b.get(rowAndColumn[0], rowAndColumn[1]);
         b.set(rowAndColumn[0], rowAndColumn[1], 0);
         helpLeft--;
-        TextView helpCount = (TextView) findViewById(R.id.helpCount);
+        helpCount = (TextView) findViewById(R.id.helpCount);
         helpCount.setText("Help Left: " + helpLeft);
 //        TextView t = (TextView) findViewById(R.id.printtext);
 //        t.setText("" + tapedon.getJustAdded());
@@ -358,7 +388,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onStop() {
-        fileManipulator.updateStringInFile(b.toString(helpLeft, score));
+        if(hasNotAdded) {
+            fileManipulator.updateStringInFile(b.toString(helpLeft, score, 1));
+        } else {
+            fileManipulator.updateStringInFile(b.toString(helpLeft, score, 0));
+        }
         super.onStop();
 
     }

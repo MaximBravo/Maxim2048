@@ -15,6 +15,17 @@ public class Board {
         MainActivity.updateScore();
 		return result;
 	}
+    public int getHighestSquare(){
+        int greatest = 0;
+        for(int i =0; i < 4; i ++){
+            for(int j = 0; j < 4; j++){
+                if(board[i][j].getId() > greatest){
+                    greatest = board[i][j].getId();
+                }
+            }
+        }
+        return greatest;
+    }
 	public Square[][] getSquareArrayBoard(){
         return board;
     }
@@ -49,6 +60,13 @@ public class Board {
             MainActivity.helpLeft = Integer.parseInt(numbers[16]);
             if(numbers.length >= 18) {
                 MainActivity.score = Integer.parseInt(numbers[17]);
+            }
+            if(numbers.length >= 19) {
+                if(Integer.parseInt(numbers[18]) == 0) {
+                    MainActivity.hasNotAdded = true;
+                } else{
+                    MainActivity.hasNotAdded = false;
+                }
             }
 
         }
@@ -162,7 +180,7 @@ public class Board {
         }
         return id;
     }
-    public String toString(int help, int score){
+    public String toString(int help, int score, int won){
         String ret = "";
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
@@ -173,7 +191,7 @@ public class Board {
         if(t){
             ret += help;
         } else {
-            ret += help + "," + score;
+            ret += help + "," + score + "," + won;
         }
         return ret;
     }
