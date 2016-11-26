@@ -111,7 +111,59 @@ public class Matrix {
 			swipeLeft(row);
 		}
 	}
-	
+
+
+	public static void swipe(int startRow, int startColumn, int endRow, int endColumn, int direction, String before){
+		for(int row = startRow; row <= endRow; row++){
+			for(int column = startColumn; column <= endColumn; column++){
+				Square current = updatedBoard[row][column];
+				Square next;
+				switch(direction){
+					case 0:
+						next = updatedBoard[row+1][column];
+						break;
+					case 1:
+						next = updatedBoard[row][column-1];
+						break;
+					case 2:
+						next = updatedBoard[row-1][column];
+						break;
+					case 3:
+						next = updatedBoard[row][column+1];
+						break;
+					default:
+						next = current;
+				}
+				boolean isCurrentPerfect = false;
+				boolean isNextPerfect = false;
+				boolean isCurrentPrime = isPrime(current.getId());
+				boolean isNextPrime = isPrime(next.getId());
+				boolean isCurrentEven = false;
+				boolean isNextEven = false;
+				double currentSquare = Math.sqrt((double) current.getId());
+				double nextSquare = Math.sqrt((double) current.getId());
+				if(currentSquare*currentSquare == current.getId()) isCurrentPerfect = true;
+				if(nextSquare*nextSquare == next.getId()) isNextPerfect = true;
+				if(current.getId()%2 == 0) isCurrentEven = true;
+				if(next.getId()%2 == 0) isNextEven = true;
+
+				if(isCurrentPerfect && isNextPerfect){
+
+				}
+			}
+		}
+	}
+
+	public static boolean isPrime(int n) {
+		//check if n is a multiple of 2
+		if (n%2==0) return false;
+		//if not, then just check the odds
+		for(int i=3;i*i<=n;i+=2) {
+			if(n%i==0)
+				return false;
+		}
+		return true;
+	}
 	public static void swipeUp(int column){
 		int count = 0;
         int first = 0;
@@ -122,6 +174,9 @@ public class Matrix {
 		for(int row = 0; row < 3; row++){
 			Square current = updatedBoard[row][column];
 			Square downSquare = updatedBoard[row+1][column];
+			if(current.getId() == 512 && downSquare.getId() == 512){
+				MainActivity.addToHelpLeft(3);
+			}
 			if(current.getId() == downSquare.getId() && current.getId() != 0){
 				updatedBoard[row][column] = new Square(current.getId()*2);
                 MainActivity.addToScore(current.getId()*2);
@@ -186,6 +241,9 @@ public class Matrix {
 		for(int row = 3; row > 0; row--){
 			Square current = updatedBoard[row][column];
 			Square upSquare = updatedBoard[row-1][column];
+			if(current.getId() == 512 && upSquare.getId() == 512){
+				MainActivity.addToHelpLeft(3);
+			}
 			if(current.getId() == upSquare.getId() && current.getId() != 0){
 				updatedBoard[row][column] = new Square(current.getId()*2);
                 MainActivity.addToScore(current.getId()*2);
@@ -247,6 +305,9 @@ public class Matrix {
 		for(int column = 0; column < 3; column++){
 			Square current = updatedBoard[row][column];
 			Square rightSquare = updatedBoard[row][column+1];
+			if(current.getId() == 512 && rightSquare.getId() == 512){
+				MainActivity.addToHelpLeft(3);
+			}
 			if(current.getId() == rightSquare.getId() && current.getId() != 0){
 				updatedBoard[row][column] = new Square(current.getId()*2);
                 MainActivity.addToScore(current.getId()*2);
@@ -309,6 +370,9 @@ public class Matrix {
 		for(int column = 3; column > 0; column--){
 			Square current = updatedBoard[row][column];
 			Square leftSquare = updatedBoard[row][column-1];
+			if(current.getId() == 512 && leftSquare.getId() == 512){
+				MainActivity.addToHelpLeft(3);
+			}
 			if(current.getId() == leftSquare.getId() && current.getId() != 0){
 				updatedBoard[row][column] = new Square(current.getId()*2);
                 MainActivity.addToScore(current.getId()*2);

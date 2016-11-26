@@ -62,10 +62,11 @@ public class MainActivity extends AppCompatActivity {
                         b.drawBoard();
                     }
                     b.drawBoard();
-                    if(b.getHighestSquare() > 2000 && hasNotAdded){
-                        helpLeft+=3;
-                        hasNotAdded = false;
-                    }
+//                    if(b.getHighestSquare()){
+//                        helpLeft+=3;
+//                        updateHelpCount();
+//                        hasNotAdded = false;
+//                    }
                 }
                 if(boardLocked()){
                     gameOver();
@@ -79,10 +80,12 @@ public class MainActivity extends AppCompatActivity {
                         b.drawBoard();
                     }
                     b.drawBoard();
-                    if(b.getHighestSquare() > 2000 && hasNotAdded){
-                        helpLeft+=3;
-                        hasNotAdded = false;
-                    }
+//                    if(b.getHighestSquare()){
+//                        helpLeft+=3;
+//                        updateHelpCount();
+//
+//                        hasNotAdded = false;
+//                    }
                 }
                 if(boardLocked()){
                     gameOver();
@@ -96,11 +99,12 @@ public class MainActivity extends AppCompatActivity {
                         b.drawBoard();
                     }
                     b.drawBoard();
-                    int high = b.getHighestSquare();
-                    if(high > 2000 && hasNotAdded){
-                        helpLeft+=3;
-                        hasNotAdded = false;
-                    }
+//                    if(b.getHighestSquare()){
+//                        helpLeft+=3;
+//                        updateHelpCount();
+//
+//                        hasNotAdded = false;
+//                    }
                 }
                 if(boardLocked()){
                     gameOver();
@@ -113,11 +117,12 @@ public class MainActivity extends AppCompatActivity {
                         b.drawBoard();
                     }
                     b.drawBoard();
-                    if(b.getHighestSquare() > 2000 && hasNotAdded){
-                        helpLeft+=3;
-
-                        hasNotAdded = false;
-                    }
+//                    if(b.getHighestSquare()){
+//                        helpLeft+=3;
+//                        updateHelpCount();
+//
+//                        hasNotAdded = false;
+//                    }
                 }
                 if(boardLocked()){
                     gameOver();
@@ -204,6 +209,10 @@ public class MainActivity extends AppCompatActivity {
     private static boolean help = false;
     private static boolean gameOver = false;
     public static int helpLeft = 3;
+    public static void addToHelpLeft(int i){
+        helpLeft += i;
+        updateHelpCount();
+    }
     public static void updateHelpCount(){
         helpCount.setText("Help Left: " + helpLeft);
     }
@@ -239,9 +248,6 @@ public class MainActivity extends AppCompatActivity {
         }
         updateHelpCount();
     }
-
-
-
     private static String printValues(int[] values) {
         String result = "";
         for (int i = 0; i < values.length; i++) {
@@ -283,6 +289,7 @@ public class MainActivity extends AppCompatActivity {
         Button helpButton = (Button) findViewById(R.id.help);
         helpButton.setEnabled(true);
         score = 0;
+        b.resetHighest();
         updateScore();
         b.drawBoard();
     }
@@ -313,7 +320,6 @@ public class MainActivity extends AppCompatActivity {
         //t.setText("row: " + rowAndColumn[0] + ", column: " + rowAndColumn[1]);
         //b.drawBoard();
     }
-
     public int[] getRowAndColumn(int buttonId){
         int[] result = new int[2];
         switch (buttonId){
@@ -384,8 +390,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return result;
     }
-
-
     @Override
     public void onStop() {
         if(hasNotAdded) {

@@ -3,6 +3,7 @@ package maximbravo.com.Maxim2048;
 public class Board {
 	private Square[][] board = new Square[4][4];
     public static boolean test = false;
+    public static int greatest = 512;
 	public Board(){
 		initializeBoard();
 	}
@@ -15,16 +16,17 @@ public class Board {
         MainActivity.updateScore();
 		return result;
 	}
-    public int getHighestSquare(){
-        int greatest = 0;
+    public boolean getHighestSquare(){
+
         for(int i =0; i < 4; i ++){
             for(int j = 0; j < 4; j++){
                 if(board[i][j].getId() > greatest){
-                    greatest = board[i][j].getId();
+                    greatest *= 2;
+                    return true;
                 }
             }
         }
-        return greatest;
+        return false;
     }
 	public Square[][] getSquareArrayBoard(){
         return board;
@@ -99,7 +101,9 @@ public class Board {
 
         }
 	}
-	
+	public void resetHighest(){
+        greatest = 512;
+    }
 	public void drawBoard(){
 		for(int i = 0; i < 4; i++){
 			drawRow(i);
