@@ -29,7 +29,7 @@ public class ColorCoding {
     };
 
     public static String[] red = {
-        "#FFFFFF",
+        "#D2CECD",
         "#FFEBEE",
         "#FFCDD2",
         "#EF9A9A",
@@ -51,7 +51,7 @@ public class ColorCoding {
 
     };
     public static String[] pink = {
-        "#FFFFFF",
+        "#D2CECD",
         "#FCE4EC",
         "#F8BBD0",
         "#F48FB1",
@@ -71,7 +71,7 @@ public class ColorCoding {
             "#880E4F"
     };
     public static String[] purple = {
-        "#FFFFFF",
+        "#D2CECD",
         "#F3E5F5",
         "#E1BEE7",
         "#CE93D8",
@@ -94,7 +94,7 @@ public class ColorCoding {
     };
 
     public static String[] blue = {
-        "#FFFFFF",
+        "#D2CECD",
         "#E3F2FD",
         "#BBDEFB",
         "#90CAF9",
@@ -117,7 +117,7 @@ public class ColorCoding {
     };
 
     public static String[] green = {
-        "#FFFFFF",
+        "#D2CECD",
         "#E8F5E9",
         "#C8E6C9",
         "#A5D6A7",
@@ -139,7 +139,7 @@ public class ColorCoding {
     };
 
     public static String[] yellow = {
-        "#FFFFFF",
+        "#D2CECD",
         "#FFFDE7",
         "#FFF9C4",
         "#FFF59D",
@@ -161,7 +161,7 @@ public class ColorCoding {
             "#F57F17"
     };
     public static String[] orange = {
-        "#FFFFFF",
+        "#D2CECD",
         "#FBE9E7",
         "#FFCCBC",
         "#FFAB91",
@@ -182,7 +182,7 @@ public class ColorCoding {
             "#BF360C"
     };
     public static String[] brown = {
-        "#FFFFFF",
+        "#D2CECD",
         "#EFEBE9",
         "#D7CCC8",
         "#BCAAA4",
@@ -203,7 +203,7 @@ public class ColorCoding {
             "#3E2723"
     };
     public static String[] grey = {
-        "#FFFFFF",
+        "#D2CECD",
         "#FAFAFA",
         "#F5F5F5",
         "#EEEEEE",

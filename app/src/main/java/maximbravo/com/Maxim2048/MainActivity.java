@@ -3,6 +3,7 @@ package maximbravo.com.Maxim2048;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -17,16 +18,20 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private static Board b = new Board();
     private static LinearLayout r;
+    private static LinearLayout m;
+    private static TextView overlay;
     private static LinearLayout l;
     public static int score = 0;
     private static TextView gameOverTextView;
     private static TextView helpCount;
     public static boolean hasNotAdded = true;
     private static FileManipulator fileManipulator;
+    private MediaPlayer mpl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mpl = MediaPlayer.create(this, R.raw.bloop);
         helpCount = (TextView) findViewById(R.id.helpCount);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fileManipulator = new FileManipulator(this);
@@ -46,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         r = (LinearLayout) findViewById(R.id.r);
-        gameOverTextView = (TextView) r.findViewById(R.id.game_over);
-
+        m = (LinearLayout) findViewById(R.id.m);
+        overlay = (TextView) findViewById(R.id.overlay);
         b.drawBoard();
         updateScore();
 
         helpCount.setText("Help Left: " + helpLeft);
-        r.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
+        overlay.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
 
             public void onSwipeTop() {
                 //Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 //                        updateHelpCount();
 //                        hasNotAdded = false;
 //                    }
+                    playSound();
                 }
                 if(boardLocked()){
                     gameOver();
@@ -86,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                        hasNotAdded = false;
 //                    }
+                    playSound();
                 }
                 if(boardLocked()){
                     gameOver();
@@ -105,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                        hasNotAdded = false;
 //                    }
+                    playSound();
                 }
                 if(boardLocked()){
                     gameOver();
@@ -123,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                        hasNotAdded = false;
 //                    }
+                    playSound();
                 }
                 if(boardLocked()){
                     gameOver();
@@ -131,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
+
+    public void playSound(){
+
+        mpl.start();
+    }
+
     public boolean boardLocked(){
         Matrix m = new Matrix(b.getSquareArrayBoard());
         if(m.getEmptySpaceCount() >= 1){
@@ -158,6 +173,8 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, Restart.class);
         i.putExtra("gameover", true);
         i.putExtra("score", score);
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.game_over);
+        mp.start();
         startActivity(i);
     }
     @Override
@@ -177,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 int[] row3 = getIntArrayOfRow(2);
                 int[] row4 = getIntArrayOfRow(3);
                 intent.putExtra("row1", row1);
-                intent.putExtra("row" + "2", row2);
+                intent.putExtra("row2", row2);
                 intent.putExtra("row3", row3);
                 intent.putExtra("row4", row4);
                 startActivity(intent);
@@ -192,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private static int[] getIntArrayOfRow(int row){
         int[] result = new int[4];
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < 4; i++){
             result[i] = b.get(row, i).getId();
         }
         return result;
@@ -201,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
         score+= toAdd;
     }
     public static void updateScore(){
-        TextView scoreText = (TextView) r.findViewById(R.id.score);
+        TextView scoreText = (TextView) m.findViewById(R.id.score);
         scoreText.setText("" + score);
     }
     private static int stage = 0;
@@ -219,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
     public static void drawButtonAt(Square s, int id) {
 
         //r.setBackgroundColor(Color.BLACK);
-        Button l = (Button) r.findViewById(id);
+        TextView l = (TextView) r.findViewById(id);
 
         l.setTextSize(size);
         l.setTextColor(Color.BLACK);
@@ -247,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
             l.setText("");
         }
         updateHelpCount();
+
     }
     private static String printValues(int[] values) {
         String result = "";
@@ -279,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
     public void refresh(){
         b.initializeBoard();
        // Toast.makeText(getApplicationContext(), "refreshed!!!", Toast.LENGTH_LONG).show();
-        gameOverTextView.setText("");
+        //gameOverTextView.setText("");
         hasNotAdded = true;
         helpLeft = 3;
         gameOver = false;
@@ -294,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
         b.drawBoard();
     }
     public void help(View view){
-
+        overlay.setVisibility(View.GONE);
         if(helpLeft > 0) {
             help = true;
             b.drawBoard();
@@ -305,9 +323,13 @@ public class MainActivity extends AppCompatActivity {
             Toast t = Toast.makeText(this, "You have no more helps left", Toast.LENGTH_SHORT);
             t.show();
             view.setEnabled(false);
+            overlay.setVisibility(View.VISIBLE);
         }
+
+
     }
     public void remove(View view){
+
         int[] rowAndColumn = getRowAndColumn(view.getId());
         Square tapedon = b.get(rowAndColumn[0], rowAndColumn[1]);
         b.set(rowAndColumn[0], rowAndColumn[1], 0);
@@ -319,6 +341,7 @@ public class MainActivity extends AppCompatActivity {
         b.drawBoard();
         //t.setText("row: " + rowAndColumn[0] + ", column: " + rowAndColumn[1]);
         //b.drawBoard();
+        overlay.setVisibility(View.VISIBLE);
     }
     public int[] getRowAndColumn(int buttonId){
         int[] result = new int[2];
