@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="maximbravo.com.Maxim2048">
+    package="maximbravo.com.Chilled2048">
 
     <application
         android:allowBackup="true"
@@ -8,30 +8,30 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="maximbravo.com.Maxim2048.StartActivity">
+        <activity android:name="maximbravo.com.Chilled2048.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="maximbravo.com.Maxim2048.MainActivity">
+        <activity android:name="maximbravo.com.Chilled2048.MainActivity">
 
         </activity>
-        <activity android:name="maximbravo.com.Maxim2048.SettingsActivity">
+        <activity android:name="maximbravo.com.Chilled2048.SettingsActivity">
 
         </activity>
-        <activity android:name="maximbravo.com.Maxim2048.Restart"
+        <activity android:name="maximbravo.com.Chilled2048.Restart"
             android:theme="@style/AppTheme.CustomTheme">
 
         </activity>
-        <activity android:name="maximbravo.com.Maxim2048.HelpActivity"
+        <activity android:name="maximbravo.com.Chilled2048.HelpActivity"
             android:label="How to play"
-            android:parentActivityName="maximbravo.com.Maxim2048.MainActivity" >
+            android:parentActivityName="maximbravo.com.Chilled2048.MainActivity" >
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="maximbravo.com.Maxim2048.MainActivity" />>
+                android:value="maximbravo.com.Chilled2048.MainActivity" />>
 
         </activity>
     </application>

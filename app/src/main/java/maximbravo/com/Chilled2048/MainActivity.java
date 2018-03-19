@@ -1,8 +1,10 @@
-package maximbravo.com.Maxim2048;
+package maximbravo.com.Chilled2048;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private static LinearLayout m;
     private static TextView overlay;
     private static LinearLayout l;
+    public static boolean canRemove = false;
     public static int score = 0;
     private static TextView gameOverTextView;
     private static TextView helpCount;
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 //                        updateHelpCount();
 //                        hasNotAdded = false;
 //                    }
-                    playSound();
+                    //playSound();
                 }
                 if(boardLocked()){
                     gameOver();
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                        hasNotAdded = false;
 //                    }
-                    playSound();
+                    //playSound();
                 }
                 if(boardLocked()){
                     gameOver();
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                        hasNotAdded = false;
 //                    }
-                    playSound();
+                    //playSound();
                 }
                 if(boardLocked()){
                     gameOver();
@@ -131,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                        hasNotAdded = false;
 //                    }
-                    playSound();
+                   // playSound();
                 }
                 if(boardLocked()){
                     gameOver();
@@ -241,19 +244,22 @@ public class MainActivity extends AppCompatActivity {
         l.setTextSize(size);
         l.setTextColor(Color.BLACK);
 
-        if(help)
-        {
-            l.setEnabled(s.getJustAdded());
-            if(s.getJustAdded() == true){
-                l.setBackgroundColor(Color.DKGRAY);
-            }
-            //l.setBackgroundColor(Color.BLACK);
-        } else {
-            l.setEnabled(false);
+//        if(help)
+//        {
+//            l.setEnabled(s.getJustAdded());
+//            if(s.getJustAdded() == true){
+//                l.setBackgroundColor(Color.DKGRAY);
+//            }
+//            help = false;
+//            //l.setBackgroundColor(Color.BLACK);
+//        } else {
+            l.setEnabled(true);
             String col = s.getSquareColor();
             int c = Color.parseColor(col);
+
             l.setBackgroundColor(c);
-        }
+
+//        }
         //l.setTextColor(Color.WHITE);
         if(s.getId()>999){
             l.setTextSize(16);
@@ -301,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
         hasNotAdded = true;
         helpLeft = 3;
         gameOver = false;
+        canRemove = false;
         help = false;
         helpCount = (TextView) findViewById(R.id.helpCount);
         helpCount.setText("Help Left: " + helpLeft);
@@ -314,11 +321,25 @@ public class MainActivity extends AppCompatActivity {
     public void help(View view){
         overlay.setVisibility(View.GONE);
         if(helpLeft > 0) {
-            help = true;
-            b.drawBoard();
-            Toast t = Toast.makeText(this, "Please select the square to remove", Toast.LENGTH_SHORT);
-            t.show();
-            help = false;
+            if(!help){
+                Button button = (Button) view;
+                button.setText("Use Help");
+                ColorDrawable cd = new ColorDrawable(Color.GRAY);
+                view.setBackground(cd);
+                b.drawBoard();
+                Toast t = Toast.makeText(this, "Please select the square to remove", Toast.LENGTH_SHORT);
+                t.show();
+                help = true;
+            } else {
+                b.drawBoard();
+                Button button = (Button) view;
+                overlay.setVisibility(View.VISIBLE);
+                button.setText("Use Help");
+                ColorDrawable cd = new ColorDrawable(getResources().getColor(R.color.grey_background));
+                view.setBackground(cd);
+                help = false;
+            }
+
         } else {
             Toast t = Toast.makeText(this, "You have no more helps left", Toast.LENGTH_SHORT);
             t.show();
@@ -332,16 +353,31 @@ public class MainActivity extends AppCompatActivity {
 
         int[] rowAndColumn = getRowAndColumn(view.getId());
         Square tapedon = b.get(rowAndColumn[0], rowAndColumn[1]);
-        b.set(rowAndColumn[0], rowAndColumn[1], 0);
-        helpLeft--;
-        helpCount = (TextView) findViewById(R.id.helpCount);
-        helpCount.setText("Help Left: " + helpLeft);
+
+        if(tapedon.getId() != 0) {
+            if(tapedon.getId() <= 8){
+                b.set(rowAndColumn[0], rowAndColumn[1], 0);
+                helpLeft--;
+                helpCount = (TextView) findViewById(R.id.helpCount);
+                helpCount.setText("Help Left: " + helpLeft);
 //        TextView t = (TextView) findViewById(R.id.printtext);
 //        t.setText("" + tapedon.getJustAdded());
-        b.drawBoard();
+                overlay.setVisibility(View.VISIBLE);
+                Button helpButton = (Button) findViewById(R.id.help);
+                ColorDrawable cd = new ColorDrawable(getResources().getColor(R.color.grey_background));
+                helpButton.setBackground(cd);
+                b.drawBoard();
+            }
+        } else {
+            overlay.setVisibility(View.VISIBLE);
+            Button helpButton = (Button) findViewById(R.id.help);
+            ColorDrawable cd = new ColorDrawable(getResources().getColor(R.color.grey_background));
+            helpButton.setBackground(cd);
+            b.drawBoard();
+        }
         //t.setText("row: " + rowAndColumn[0] + ", column: " + rowAndColumn[1]);
         //b.drawBoard();
-        overlay.setVisibility(View.VISIBLE);
+
     }
     public int[] getRowAndColumn(int buttonId){
         int[] result = new int[2];

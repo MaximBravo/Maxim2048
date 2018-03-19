@@ -1,4 +1,4 @@
-package maximbravo.com.Maxim2048;
+package maximbravo.com.Chilled2048;
 
 public class Board {
 	private Square[][] board = new Square[4][4];

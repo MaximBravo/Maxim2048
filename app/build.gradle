@@ -5,11 +5,11 @@ android {
     buildToolsVersion "24.0.1"
 
     defaultConfig {
-        applicationId "maximbravo.com.Maxim2048"
-        minSdkVersion 15
+        applicationId "maximbravo.com.Chilled2048"
+        minSdkVersion 16
         targetSdkVersion 24
-        versionCode 10
-        versionName "1.7"
+        versionCode 3
+        versionName "1.2"
     }
     buildTypes {
         release {

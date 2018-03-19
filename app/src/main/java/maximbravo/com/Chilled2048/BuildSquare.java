@@ -1,4 +1,4 @@
-package maximbravo.com.Maxim2048;
+package maximbravo.com.Chilled2048;
 
 import android.support.annotation.Nullable;
 
