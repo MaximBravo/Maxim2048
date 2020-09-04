@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Maxim2048.iml" filepath="$PROJECT_DIR$/Maxim2048.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Maxim2048-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Maxim2048-app.iml" group="Maxim2048/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/projects-Maxim2048.iml" filepath="$PROJECT_DIR$/.idea/modules/projects-Maxim2048.iml" group="Maxim2048" />
     </modules>
   </component>
 </project>
